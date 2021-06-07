@@ -298,8 +298,6 @@ This happens because we did not initialized our DB to do this we can add the ini
 ```yaml
 version: "3.4"
 
-version: "3.4"
-
 services:
   mongo:
     image: mongo
@@ -387,7 +385,7 @@ mkdir manifest
 After that we want to create a namespace for our application, a namespace is a way to divide a Kubernetes cluster into a series of diferent enviorments they are great to help you divide applications in different ways such as:
 
 * Development/Quality/Production Environments
-* Tennant1/Tennant2/Tennant3 Environments
+* Tenant1/Tenant2/Tenant3 Environments
 * ...
 
 We want our application to run in it's own environment so we have to create a namespace to do this create a file named namespace.yaml and insert the following content
