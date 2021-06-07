@@ -67,7 +67,6 @@ Type the following into the file. These statements produce a Dockerfile that des
 
      - Creates a new Docker image from the base image node:alpine. This base image has node.js on it and is optimized for small size.
 
-     - Add `curl` to the base image to support Docker health checks.
 
      - Creates a directory on the image where the application files can be copied.
 
@@ -298,8 +297,6 @@ This happens because we did not initialized our DB to do this we can add the ini
 ```yaml
 version: "3.4"
 
-version: "3.4"
-
 services:
   mongo:
     image: mongo
@@ -349,7 +346,7 @@ After this visit http://localhost:3000 to see the app running with content
 
 ![Website with content](media/media5.png)
 
-Before moving on to the next Exercise remove the website via the docker compose by running 
+Before moving on to the next exercise remove the website via the docker compose by running 
 
 ```powershell
 docker-compose -f docker-compose.yml -p fabmedical down
@@ -362,15 +359,17 @@ docker-compose -f docker-compose.yml -p fabmedical down
 In this exercise, you will connect to the 
  Kubernetes cluster in Docker Desktop and deploy the Docker application to the cluster.
 
-If you want to do this exercise by skipping the Docker Exercise please perform the first 2 tasks in that Exercise as they are necessary for this one.
+If you want to do this exercise by skipping the first exercise please perform the first 2 tasks in that Exercise as they are necessary for this one, or everytime it uses any custom imagen (content-\*) replace it with (hugos99/content-\*).
 
 ### Task 1: Connect to the Kubernetes Cluster
 
 Before you connect to the Kubernetes Cluster validate that you have turn on Kubernetes in Docker Desktop so that you have a local Kubernetes Cluster.
 
+if it's not on turn it on and restart Docker Desktop (this will take a couple minutes but it's pretty quick)
+
 ![Validate Docker Desktop Kubernetes Setting](media/media6.png)
 
-After this open [Kubernetes Lens](https://k8slens.dev/) and select add cluster on the bar to the right, select the default .kubeconfig and choose the context called docker-desktop see picture bellow.
+After this open [Kubernetes Lens](https://k8slens.dev/) and select add cluster on the bar to the right, select the default .kubeconfig and choose the context called docker-desktop and add the cluster (see picture bellow).
 
 ![Add Cluster to Lens](media/media7.png)
 
@@ -384,7 +383,7 @@ First create a directory where we will store all the manifests
 mkdir manifest
 ```
 
-After that we want to create a namespace for our application, a namespace is a way to divide a Kubernetes cluster into a series of diferent enviorments they are great to help you divide applications in different ways such as:
+After that we want to create a namespace for our application, a namespace is a way to divide a Kubernetes cluster into a series of different environments they are great to help you divide applications in different ways such as:
 
 * Development/Quality/Production Environments
 * Tennant1/Tennant2/Tennant3 Environments
