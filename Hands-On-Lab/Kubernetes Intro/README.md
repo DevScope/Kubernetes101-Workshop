@@ -349,7 +349,7 @@ After this visit http://localhost:3000 to see the app running with content
 
 ![Website with content](media/media5.png)
 
-Before moving on to the next Exercice remove the website via the docker compose by running 
+Before moving on to the next Exercise remove the website via the docker compose by running 
 
 ```powershell
 docker-compose -f docker-compose.yml -p fabmedical down
@@ -384,13 +384,13 @@ First create a directory where we will store all the manifests
 mkdir manifest
 ```
 
-After that we want to create a namespace for our application, a namespace is a way to divide a Kubernetes cluster into a series of diferent enviorments they are great to help you divide applications in diferent ways such as:
+After that we want to create a namespace for our application, a namespace is a way to divide a Kubernetes cluster into a series of diferent enviorments they are great to help you divide applications in different ways such as:
 
-* Development/Quality/Production Enviorments
-* Tennant1/Tennant2/Tennant3 Enviorments
+* Development/Quality/Production Environments
+* Tennant1/Tennant2/Tennant3 Environments
 * ...
 
-We want our application to run in it's own enviorment so we have to create a namespace to do this create a file named namespace.yaml and insert the following content
+We want our application to run in it's own environment so we have to create a namespace to do this create a file named namespace.yaml and insert the following content
 
 ```yaml
 apiVersion: v1
@@ -419,7 +419,7 @@ This will apply all kubernetes manifests in the folder (in our case the namespac
 
 Now that we created our Namespace lets get our api working.
 
-Our API has a dependency in the MongoDB, in a Production Enviorment the best option would most likely be to host this DB in a Cloud Provider like CosmosDB. But since we are hosting in our machines to learn Kubernetes we can create a mongoDB instance and populate it using the init-container.
+Our API has a dependency in the MongoDB, in a Production Environment the best option would most likely be to host this DB in a Cloud Provider like CosmosDB. But since we are hosting in our machines to learn Kubernetes we can create a mongoDB instance and populate it using the init-container.
 
 To do this we have to create 3 things:
 
@@ -431,7 +431,7 @@ So now we can create a single file named mongodb.yaml and we will build all this
 
 ### Task 2: Create the Deployment for Mongo DB
    
-A deployment is composed by a template of a Pod that it will replicate, a selector so the deployment knows what pods to manage and a replica number so it know what the intended munber of replicas is.
+A deployment is composed by a template of a Pod that it will replicate, a selector so the deployment knows what pods to manage and a replica number so it know what the intended number of replicas is.
 ```yaml
 apiVersion: apps/v1 
 kind: Deployment
@@ -525,7 +525,7 @@ To do the deployment of the API have to:
 2. Create a service for the API
 3. Test the API
 
-So we start with the API Deployment here we have a problem which is the MongoDB connection string (in the previous step we added it via a enviorment variable to the content-init pod) we don't want this Connection String to be accessiable to all cluster users this is unsave on top of that what if we change the connection string we would have to change every deployment. To fix both these problems we can use a Kubernetes Secret.
+So we start with the API Deployment, but we have a problem which is the MongoDB connection string (in the previous step we added it via a environment variable to the content-init pod) we don't want this Connection String to be accessible to all cluster users this is unsafe on top of that what if we change the connection string we would have to change every deployment that might share this. To fix both these problems we can use a Kubernetes Secret.
 
 To create a secret we need the original string encoded to base64 we can do this online or by running the following powershell script
 
@@ -621,7 +621,7 @@ We can run
 ```powershell
 curl http://localhost:32222/sessions
 ``` 
-to validate the API is working as inteded via the NodePort.
+to validate the API is working as intended via the NodePort.
 
 
 This concludes the API Deployment all that is missing is the Web Interface.
@@ -633,7 +633,7 @@ To Deploy the Web interface we have to do the same steps as the UI:
 2. Create a Service for the Web Interface
 3. Test the Web Interface
 
-The Deployment for the web interface will be very similar to the api the only major diference is that we will not use secrets in the configuration of the Pod instead injecting the Variable directly.
+The Deployment for the web interface will be very similar to the api the only major difference is that we will not use secrets in the configuration of the Pod instead injecting the Variable directly.
 
 ```yaml
 apiVersion: apps/v1 
@@ -667,7 +667,7 @@ We apply this and we can navigate to the same tab as in the API deployment to va
 ![Web Deployment Lens](media/media15.png)
 
 All that is left is to Deploy the Service.
-This is the same cenario as the API in that since we are running locally we have to use a NodePort Service to expose our application.
+This is the same scenario as the API in that since we are running locally we have to use a NodePort Service to expose our application.
 
 That lead to the following Service:
 ```yaml
@@ -694,7 +694,7 @@ After Applying this file all that's left is to visit the page http://localhost:3
 
 ## Exercise 3: Testing Kubernetes Deployment
 
-This Exercice requires that the previous exercice be completed.
+This Exercise requires that the previous exercise be completed.
 
 Now that the Application is deployed we are going to start exploring Kubernetes and it's mechanisms.
 
@@ -723,9 +723,9 @@ Run this command with Lens opened on the Pods tabs and see Kubernetes doing a gr
 
 ### Task 2: Scaling a Deployment
 
-With our applications deployed we can now try to scale up our apps so they can better distribuit traffic accross our cluster.
+With our applications deployed we can now try to scale up our apps so they can better distribute traffic across our cluster.
 
-We can do this by editing our deployment file and increasing the number of replicas then appliyng the changes or using Lens and selecting the deployment and increase it's replicas:
+We can do this by editing our deployment file and increasing the number of replicas then applying the changes or using Lens and selecting the deployment and increase it's replicas:
 
 ![kubernetes Lens scale Deployment](media/media19.png)
 
@@ -733,7 +733,7 @@ We can do this by editing our deployment file and increasing the number of repli
 
 The final task for the workshop is to add CPU limits and requests.
 
-These requests and limits are used by Kubernetes to better orchestrate our workloads by knowing the mininum and the maxinum resources that a Pod can have.
+These requests and limits are used by Kubernetes to better orchestrate our workloads by knowing the minimum and the maximum resources that a Pod can have.
 
 To do this we edit the Web deployment so the Pod templates now include a limit and a request.
 
